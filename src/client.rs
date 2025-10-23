@@ -35,7 +35,7 @@ impl Client {
         let form = form.part("md", form_con);
 
         self.client()
-            .post("https://bin.perosar.tech")
+            .post(&self.instance)
             .multipart(form)
             .send()?
             .text()
@@ -47,7 +47,7 @@ impl Client {
         let form = form.part("file", form_con);
 
         self.client()
-            .post("https://bin.perosar.tech")
+            .post(&self.instance)
             .multipart(form)
             .send()?
             .text()
