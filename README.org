@@ -1,0 +1,7 @@
+#+TITLE: librustbin
+#+DESCRIPTION: A Rust library to interact with Rustbin.
+#+LANGUAGE: en
+
+* About
+
+This repository entails the source code for librustbin.
