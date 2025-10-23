@@ -6,6 +6,11 @@ fn main() {
     let mut args: Vec<String> = env::args().collect();
     let _ = args.remove(0);
 
+    if args.len() != 1 {
+        println!("No argument found. Usage: ./rustbin-cli <file.txt>");
+        return;
+    }
+
     let librbc = Client::new("https://bin.cyberknight777.dev".to_string());
 
     for arg in args {
