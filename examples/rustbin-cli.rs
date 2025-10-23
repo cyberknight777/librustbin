@@ -6,7 +6,7 @@ fn main() {
     let mut args: Vec<String> = env::args().collect();
     let _ = args.remove(0);
 
-    let librbc = Client::new();
+    let librbc = Client::new("https://bin.cyberknight777.dev".to_string());
 
     for arg in args {
         let path = Path::new(&arg);
