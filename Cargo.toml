@@ -1,0 +1,12 @@
+[dependencies.reqwest]
+features = ["blocking", "multipart"]
+version = "0.11.5"
+
+[package]
+authors = ["@PeroSar <perosar1111@gmail.com>"]
+description = "Rust wrapper for rustbin"
+edition = "2018"
+license = "MIT"
+name = "librustbin"
+repository = "https://github.com/cyberknight777/librustbin"
+version = "0.2.0"
