@@ -52,4 +52,16 @@ impl Client {
             .send()?
             .text()
     }
+
+    pub fn paste_short(&self, content: String) -> Result<String, reqwest::Error> {
+        let form = multipart::Form::new();
+        let form_con = multipart::Part::text(content).mime_str("text/plain")?;
+        let form = form.part("short", form_con);
+
+        self.client()
+            .post(&self.instance)
+            .multipart(form)
+            .send()?
+            .text()
+    }
 }
