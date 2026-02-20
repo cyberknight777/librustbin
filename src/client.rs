@@ -44,7 +44,7 @@ impl Client {
     pub fn paste_plain(&self, content: String) -> Result<String, reqwest::Error> {
         let form = multipart::Form::new();
         let form_con = multipart::Part::text(content).mime_str("text/plain")?;
-        let form = form.part("file", form_con);
+        let form = form.part("simple", form_con);
 
         self.client()
             .post(&self.instance)
