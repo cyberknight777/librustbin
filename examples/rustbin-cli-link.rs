@@ -1,20 +1,16 @@
 use librustbin::Client;
 use std::env;
 
-fn main() {
-    let mut args: Vec<String> = env::args().collect();
-    let _ = args.remove(0);
+#[tokio::main]
+async fn main() {
+    let args: Vec<String> = env::args().skip(1).collect();
 
     if args.len() != 1 {
-        println!("No argument found. Usage: ./rustbin-cli-link <link>");
+        eprintln!("Usage: rustbin-cli-link <url>");
         return;
     }
 
-    let librbc = Client::new("https://bin.cyberknight777.dev".to_string());
-
-    let paste_url = librbc
-        .paste_short(args[0].to_string())
-        .unwrap();
-
-    println!("{}: {}", args[0].to_string(), paste_url.trim());
+    let client = Client::new("https://bin.cyberknight777.dev");
+    let url = client.shorten(&args[0]).await.unwrap();
+    println!("{}: {}", args[0], url.trim());
 }

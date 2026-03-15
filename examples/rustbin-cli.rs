@@ -1,30 +1,35 @@
-use librustbin::Client;
+use librustbin::{Client, PasteOptions};
 use std::ffi::OsStr;
 use std::{env, fs, path::Path};
 
-fn main() {
-    let mut args: Vec<String> = env::args().collect();
-    let _ = args.remove(0);
+#[tokio::main]
+async fn main() {
+    let args: Vec<String> = env::args().skip(1).collect();
 
-    if args.len() != 1 {
-        println!("No argument found. Usage: ./rustbin-cli <file.txt>");
+    if args.is_empty() {
+        eprintln!("Usage: rustbin-cli <file> [file...]");
         return;
     }
 
-    let librbc = Client::new("https://bin.cyberknight777.dev".to_string());
+    let client = Client::new("https://bin.cyberknight777.dev");
 
-    for arg in args {
-        let path = Path::new(&arg);
-        let ext = path.extension().and_then(OsStr::to_str).unwrap_or("txt");
+    for arg in &args {
+        let path = Path::new(arg);
 
         if !path.exists() {
-            println!("{}: Not found", &arg);
+            eprintln!("{arg}: not found");
             continue;
         }
 
-        let paste_url = librbc
-            .paste_highlight(fs::read_to_string(&path).unwrap())
-            .unwrap();
-        println!("{}: {}.{}", arg, paste_url.trim(), ext);
+        let content = fs::read_to_string(path).unwrap();
+        let filename = path.file_name().and_then(OsStr::to_str).map(String::from);
+
+        let options = PasteOptions {
+            filename,
+            ..Default::default()
+        };
+
+        let url = client.paste(&content, &options).await.unwrap();
+        println!("{arg}: {}", url.trim());
     }
 }
