@@ -8,7 +8,7 @@ repository = "https://github.com/cyberknight777/librustbin"
 authors = ["@PeroSar <perosar1111@gmail.com>, @cyberknight777 <cyberknight755@gmail.com>"]
 
 [dependencies]
-reqwest = { version = "0.12", features = ["multipart"] }
+reqwest = { version = "0.13", features = ["multipart"] }
 
 [dev-dependencies]
 tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
